@@ -6,10 +6,10 @@
 cmake_minimum_required(VERSION 3.4.1)
 
 # NB: sort it out
-set(TR_SRC "../../LabelParserLib/src")
+set(TR_SRC "../../PriceTagParserLib/src")
 
 # add a path to the directory where external lib's CMakeLists.txt is located
-add_subdirectory("../../LabelParserLib/src" "../../LabelParserLib/lib")
+add_subdirectory("../../PriceTagParserLib/src" "../../PriceTagParserLib/lib")
 
 # set path to OpenCV4Android package
 set("OpenCV_DIR" "$ENV{OpenCV4Android_DIR}/sdk/native/jni")
@@ -23,18 +23,18 @@ find_package( OpenCV REQUIRED )
 # Gradle automatically packages shared libraries with your APK.
 
 add_library( # Sets the name of the library.
-             label-parser-lib
+             price-tag-parser-lib
 
              # Sets the library as a shared library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             src/main/cpp/label-parser-lib-wraper.cpp )
+             src/main/cpp/price-tag-parser-lib-wraper.cpp )
 
 # add opencv include directory to the search path for include files
 # so that we will find opencv.h
 include_directories(${OpenCV_INCLUDE_DIRS})
-include_directories("../../LabelParserLib/src")
+include_directories("../../PriceTagParserLib/src")
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -54,7 +54,7 @@ find_library( # Sets the name of the path variable.
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-                       label-parser-lib
+                       price-tag-parser-lib
                        jnigraphics
                        android
                        log
@@ -65,7 +65,7 @@ target_link_libraries( # Specifies the target library.
                        ${log-lib}
 
                         #
-                        LabelParserLib
+                        PriceTagParserLib
 
                         #
                         ${OpenCV_LIBS})
