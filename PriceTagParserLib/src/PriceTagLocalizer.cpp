@@ -1,7 +1,16 @@
 #include "PriceTagLocalizer.h"
+#if Build_For_ANDROID
+#else
+#include "easylogging++.h"
+INITIALIZE_EASYLOGGINGPP
+#endif
 
 preprocessing::OrientationCorrector * preprocessing::OrientationCorrector::createOrientationCorrector(
         OrientationCorrectorId id) {
+#if Build_For_ANDROID
+#else
+    LOG(INFO) << TAG + ": createOrientationCorrector";
+#endif
     OrientationCorrector *corrector;
     switch (id) {
         case HistogramId:
@@ -14,6 +23,11 @@ preprocessing::OrientationCorrector * preprocessing::OrientationCorrector::creat
 }
 
 cv::Mat preprocessing::HistogrammOrientationCorrector::correct(cv::Mat image) {
+
+#if Build_For_ANDROID
+#else
+    LOG(INFO) << TAG + ": correct";
+#endif
     return image;
 }
 
@@ -30,6 +44,10 @@ SimplePriceTagLocalizer::~SimplePriceTagLocalizer() {
 }
 
 PriceTagLocalizer* PriceTagLocalizer::createPriceTagLocalizer(PriceTagLocalizerId id) {
+#if Build_For_ANDROID
+#else
+    LOG(INFO) << "createPriceTagLocalizer";
+#endif
     PriceTagLocalizer *localizer;
     switch (id) {
         case SimplePriceTagLocalizerId :

@@ -1,4 +1,9 @@
 #include "TextParser.h"
+#if Build_For_ANDROID
+#else
+#include "easylogging++.h"
+//INITIALIZE_EASYLOGGINGPP
+#endif
 
 TextParser* TextParser::createTextParser(TextParserId id) {
     TextParser *parser;

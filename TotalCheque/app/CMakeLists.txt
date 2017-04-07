@@ -5,6 +5,8 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+set(Build_For_ANDROID 1)
+
 # NB: sort it out
 set(TR_SRC "../../PriceTagParserLib/src")
 
