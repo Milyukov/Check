@@ -12,7 +12,7 @@ public:
     static TextDetector* createTextDetector(TextDetectorId id);
 
     std::vector<cv::Mat> getWords() { return words; };
-private:
+protected:
     std::vector<cv::Mat> words;
 };
 
@@ -22,7 +22,7 @@ public:
     virtual void recognize(cv::Mat word) = 0;
     static TextRecognizer* createTextRecognizer(TextRecognizerId id);
     std::string getWord() { return word; };
-private:
+protected:
     std::string word;
 };
 

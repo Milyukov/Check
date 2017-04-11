@@ -8,7 +8,7 @@ public:
     static TextParser *createTextParser(TextParserId id);
     std::string getPrice() { return price; };
     std::string getProducrName() { return productName; };
-private:
+protected:
     std::string price;
     std::string productName;
 };
