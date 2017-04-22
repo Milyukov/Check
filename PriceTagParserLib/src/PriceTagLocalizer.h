@@ -38,7 +38,9 @@ public:
     virtual void localize(cv::Mat image) = 0;
     virtual cv::Mat visualize(cv::Mat image) = 0;
     static PriceTagLocalizer* createPriceTagLocalizer(PriceTagLocalizerId id);
-    std::vector<cv::Mat> getRegions() { return regions; };
+    std::vector<cv::Mat> getRegions() {
+        return regions;
+    };
     //std::vector<cv::Point[2]> getCoordinates() { return coordinates; };
 
 protected:

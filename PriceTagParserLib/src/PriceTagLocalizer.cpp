@@ -1,9 +1,4 @@
 #include "PriceTagLocalizer.h"
-#if Build_For_ANDROID
-#else
-#include "easylogging++.h"
-INITIALIZE_EASYLOGGINGPP
-#endif
 
 preprocessing::OrientationCorrector * preprocessing::OrientationCorrector::createOrientationCorrector(
         OrientationCorrectorId id) {
@@ -44,9 +39,9 @@ cv::Mat preprocessing::rgb2gray(cv::Mat image) {
     LOG(INFO) << TAG + ": rgb2gray";
 #endif
     cv::Mat gray;
-    if (image.channels() == 3) {
+    //if (image.channels() == 3) {
         cv::cvtColor(image, gray, cv::COLOR_RGB2GRAY);
-    }
+    //}
     return gray;
 }
 
@@ -122,7 +117,14 @@ SimplePriceTagLocalizer::SimplePriceTagLocalizer() {
 }
 
 SimplePriceTagLocalizer::~SimplePriceTagLocalizer() {
-
+#if Build_For_ANDROID
+#else
+    LOG(INFO) << "~SimplePriceTagLocalizer";
+#endif
+    for (int i = 0; i < regions.size(); i++) {
+        regions[i].release();
+    }
+    regions.clear();
 }
 
 PriceTagLocalizer* PriceTagLocalizer::createPriceTagLocalizer(PriceTagLocalizerId id) {
@@ -171,19 +173,17 @@ void SimplePriceTagLocalizer::localize(cv::Mat image) {
         region.setTo(cv::Scalar(1), markers == regionNumber + 1);
         regions.push_back(region);
     }
-    // visualization
-    //cv::Mat addition = cv::Mat(image.rows, image.cols, image.type(), cv::Scalar(0, 0, 0));
-    //addition.setTo(cv::Scalar(0, 40, 0), markers != 0);
-    //image += addition;
-
-    //cv::imwrite("test_seg.jpg", image);
-
 }
 
 cv::Mat SimplePriceTagLocalizer::visualize(cv::Mat image) {
-    /*std::vector<cv::Point[2]> coordinates = getCoordinates();
-    for (int regionId = 0; regionId < coordinates.size(); regionId++) {
-        cv::rectangle(image, coordinates[regionId][0], coordinates[regionId][1], cv::Scalar(0, 255, 0));
-    }*/
+#if Build_For_ANDROID
+#else
+    LOG(INFO) << "vizualize";
+#endif
+    for (int regionId = 0; regionId < regions.size(); regionId++) {
+        cv::Mat addition = cv::Mat(image.rows, image.cols, image.type(), cv::Scalar(0, 0, 0));
+        addition.setTo(cv::Scalar(0, 40, 0), regions[regionId] != 0);
+        image += addition;
+    }
     return image;
 }

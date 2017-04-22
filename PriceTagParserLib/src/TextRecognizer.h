@@ -32,3 +32,10 @@ public:
     ~SimpleTextDetector();
     void detect(cv::Mat area);
 };
+
+class SimpleTextRecognizer : public TextRecognizer {
+public:
+    SimpleTextRecognizer() {};
+    ~SimpleTextRecognizer() {};
+    void recognize(cv::Mat word) {};
+};

@@ -1,11 +1,10 @@
 #include "TextParser.h"
-#if Build_For_ANDROID
-#else
-#include "easylogging++.h"
-//INITIALIZE_EASYLOGGINGPP
-#endif
 
 TextParser* TextParser::createTextParser(TextParserId id) {
+#if Build_For_ANDROID
+#else
+    LOG(INFO) << ": createTextParser";
+#endif
     TextParser *parser;
     switch (id) {
         case SimpleTextParserId:
@@ -18,7 +17,6 @@ TextParser* TextParser::createTextParser(TextParserId id) {
 }
 
 SimpleTextParser::~SimpleTextParser() {
-
 }
 
 void SimpleTextParser::parse(std::string text) {
